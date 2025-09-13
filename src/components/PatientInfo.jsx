@@ -25,12 +25,12 @@
                             {patient.allergies.map((item, index) => <li key={index}>{item}</li>)}
                         </ul>
                     </div>
-                    <div className="bg-purple-50 p-4 rounded-lg">
+                    {/* <div className="bg-purple-50 p-4 rounded-lg">
                         <h3 className="text-sm font-semibold text-purple-800 mb-2">Current Symptoms</h3>
                         <ul className="text-sm text-purple-700 list-disc list-inside">
                             {patient.currentSymptoms.map((item, index) => <li key={index}>{item}</li>)}
                         </ul>
-                    </div>
+                    </div> */}
                     <div className="bg-green-50 p-4 rounded-lg">
                         <h3 className="text-sm font-semibold text-green-800 mb-2">Medications</h3>
                         <ul className="text-sm text-green-700 list-disc list-inside">
