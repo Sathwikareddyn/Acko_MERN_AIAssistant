@@ -2,17 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Users, FileText, Video, Clock, User, Plus, LogOutIcon } from 'lucide-react';
 import { mockDoctor } from '../mockData/mockDoctor';
 import { useNavigate } from 'react-router-dom';
+import { useReports } from '../ReportsContext';
 
 const DoctorDashboard = () => {
   const [sessions, setSessions] = useState([{id: "1", status: "scheduled", scheduledAt: Date.now()}]);
-  const [reports, setReports] = useState([]);
+//   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { reports } = useReports();
 
   const navigate = useNavigate()
 
   const onStartSession = (sessionId) => {
     navigate(`/doctor/${sessionId}`)
   }
+
+  useEffect(() => {
+    console.log(reports?.length)
+  },[reports])
 
 
 //   const fetchDoctorData = async () => {
@@ -104,7 +110,7 @@ const DoctorDashboard = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Reports Generated</p>
-                <p className="text-2xl font-bold text-gray-900">{reports.length}</p>
+                <p className="text-2xl font-bold text-gray-900">{reports?.length}</p>
               </div>
             </div>
           </div>
@@ -167,9 +173,9 @@ const DoctorDashboard = () => {
               <h2 className="text-lg font-semibold text-gray-900">Recent Reports</h2>
             </div>
             <div className="p-6">
-              {reports.length > 0 ? (
+              {/* {reports?.length > 0 ? (
                 <div className="space-y-4">
-                  {reports.slice(0, 5).map((report) => (
+                  {reports?.slice(0, 5).map((report) => (
                     <div key={report.id} className="p-4 bg-gray-50 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-medium text-gray-900">{report.patientName}</p>
@@ -203,12 +209,27 @@ const DoctorDashboard = () => {
                     </div>
                   ))}
                 </div>
-              ) : (
+              ) : ( */}
+              {reports?.length > 0 ? 
+                <ul>
+                    {reports.map((url, index) => (
+                        <li key={index}>
+                            <a 
+                                href={url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline"
+                            >
+                                Report_{Date.now()}
+                            </a>
+                        </li>
+                    ))}
+                </ul> :
                 <div className="text-center py-8">
                   <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                   <p className="text-gray-600">No reports yet</p>
                 </div>
-              )}
+            }
             </div>
           </div>
         </div>

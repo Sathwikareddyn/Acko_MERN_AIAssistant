@@ -18,7 +18,6 @@ const useAIQuestionGenerator = (transcript) => {
                 if (transcript.length >= 0 && transcript.length % 2 === 0) {
                     setIsGenerating(true);
                     setTimeout(() => {
-                        console.log(newQuestions.slice(0,3))
                         setAiQuestions(newQuestions.slice(0,3));
                         setIsGenerating(false);
                     }, 2000);

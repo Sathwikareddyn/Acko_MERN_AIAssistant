@@ -14,6 +14,7 @@ import VideoCallInterface from "./VideoCallInterface";
 import acko from "../assets/Acko.jpeg"
 import { LogOutIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useReports } from '../ReportsContext';
             
 const DoctorPage = () => {
     const [sessionStatus, setSessionStatus] = useState('active');
@@ -22,6 +23,7 @@ const DoctorPage = () => {
             const localStreamRef = useRef(null);
             const localVideoRef = useRef(null);
             const navigate = useNavigate()
+            const { generateReport, isLoading } = useReports();
 
             const {
                 isRecording,
@@ -42,6 +44,8 @@ const DoctorPage = () => {
                 }
                 setSessionStatus('completed');
                 navigate("/doctor")
+                console.log(transcript)
+                generateReport(transcript);
             };
 
             const handleToggleAudio = (participantId) => {

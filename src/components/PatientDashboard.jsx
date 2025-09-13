@@ -3,12 +3,14 @@ import { Calendar, FileText, Clock, User, Video, Heart, Activity, Plus, LogOutIc
 import { useNavigate } from 'react-router-dom';
 import PatientInfo from './PatientInfo';
 import { mockPatient } from '../mockData/mockPatient';
+import { useReports } from '../ReportsContext';
 
 const PatientDashboard = () => {
   const [sessions, setSessions] = useState([{id: "1", status: "scheduled", scheduledAt: Date.now()}]);
-  const [reports, setReports] = useState([]);
+  // const [reports, setReports] = useState([]);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { reports } = useReports();
 
   const navigate = useNavigate()
 
@@ -170,7 +172,7 @@ const PatientDashboard = () => {
               <h2 className="text-lg font-semibold text-gray-900">Recent Reports</h2>
             </div>
             <div className="p-6">
-              {reports.length > 0 ? (
+              {/* {reports.length > 0 ? (
                 <div className="space-y-4">
                   {reports.slice(0, 5).map((report) => (
                     <div key={report.id} className="p-4 bg-gray-50 rounded-lg">
@@ -211,7 +213,27 @@ const PatientDashboard = () => {
                   <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                   <p className="text-gray-600">No medical reports yet</p>
                 </div>
-              )}
+              )} */}
+              {reports?.length > 0 ? 
+                              <ul>
+                                  {reports.map((url, index) => (
+                                      <li key={index}>
+                                          <a 
+                                              href={url} 
+                                              target="_blank" 
+                                              rel="noopener noreferrer"
+                                              className="text-blue-600 hover:underline"
+                                          >
+                                              Report_{Date.now()}
+                                          </a>
+                                      </li>
+                                  ))}
+                              </ul> :
+                              <div className="text-center py-8">
+                                <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                                <p className="text-gray-600">No reports yet</p>
+                              </div>
+                          }
             </div>
           </div>
         </div>

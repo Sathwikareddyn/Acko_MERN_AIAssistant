@@ -16,6 +16,8 @@ import DoctorInfo from "./DoctorInfo";
 import { mockDoctor } from "../mockData/mockDoctor";
 import { LogOutIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useReports } from '../ReportsContext';
+const { generateReport, isLoading } = useReports();
             
 const DoctorPage = () => {
     const [sessionStatus, setSessionStatus] = useState('active');
@@ -44,6 +46,7 @@ const DoctorPage = () => {
                 }
                 setSessionStatus('completed');
                 navigate("/patient")
+                generateReport(transcript);
             };
 
             const handleToggleAudio = (participantId) => {
